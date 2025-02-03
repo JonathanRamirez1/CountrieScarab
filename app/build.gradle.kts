@@ -11,6 +11,9 @@ val legacySupportVersion = "1.0.0"
 val coroutinesVersion = "1.7.3"
 val roomVersion = "2.6.1"
 val hiltVersion = "2.46"
+val retrofitVersion = "2.9.0"
+val retrofitCoroutineVersion = "0.9.2"
+val loggingInterceptorVersion = "4.9.3"
 val composeUiVersion = "1.7.6"
 val composeLifecycleVersion = "2.6.2"
 val composeActivityVersion = "1.7.2"
@@ -126,6 +129,12 @@ dependencies {
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
+
+    // Retrofit + Logging
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutineVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion")
 
     // Dagger Hilt
     implementation("com.google.dagger:hilt-android:$hiltVersion")
