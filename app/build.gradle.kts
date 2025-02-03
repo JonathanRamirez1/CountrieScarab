@@ -18,6 +18,8 @@ val composeUiVersion = "1.7.6"
 val composeLifecycleVersion = "2.6.2"
 val composeActivityVersion = "1.7.2"
 val composeViewModelVersion = "2.8.7"
+val composeLiveDataVersion = "1.7.7"
+val coilComposeVersion = "2.2.2"
 val composeHiltViewModelVersion = "1.2.0"
 val material3Version = "1.3.1"
 val materialIconExtendedVersion = "1.7.6"
@@ -38,12 +40,12 @@ plugins {
 
 android {
     namespace = "com.rj2techsolutions.countriescarab"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.rj2techsolutions.countriescarab"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -121,6 +123,12 @@ dependencies {
 
     // ViewModel Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModelVersion")
+
+    // Livedata Compose
+    implementation("androidx.compose.runtime:runtime-livedata:$composeLiveDataVersion")
+
+    // Coil Compose
+    implementation("io.coil-kt:coil-compose:$coilComposeVersion")
 
     // Hilt con ViewModel
     implementation("androidx.hilt:hilt-navigation-compose:$composeHiltViewModelVersion")

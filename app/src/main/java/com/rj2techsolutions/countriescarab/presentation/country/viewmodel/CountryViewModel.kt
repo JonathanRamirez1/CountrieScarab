@@ -1,4 +1,4 @@
-package com.rj2techsolutions.countriescarab.presentation.country
+package com.rj2techsolutions.countriescarab.presentation.country.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,6 +23,9 @@ class CountryViewModel @Inject constructor(
     private val _selectedCountry = MutableStateFlow<Resource<Country>>(Resource.loading())
     val selectedCountry: StateFlow<Resource<Country>> = _selectedCountry.asStateFlow()
 
+    private val _selectedCountries = MutableStateFlow<List<Country>>(emptyList())
+    val selectedCountries: StateFlow<List<Country>> = _selectedCountries.asStateFlow()
+
     fun fetchCountriesByRegion(region: String) {
         viewModelScope.launch {
             useCase.getCountriesByRegion(region).collect { resource ->
@@ -37,5 +40,9 @@ class CountryViewModel @Inject constructor(
                 _selectedCountry.value = resource
             }
         }
+    }
+
+    fun setSelectedCountries(countries: List<Country>) {
+        _selectedCountries.value = countries.toList()
     }
 }

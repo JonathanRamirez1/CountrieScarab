@@ -7,7 +7,8 @@ import com.rj2techsolutions.countriescarab.domain.model.Country
 import com.rj2techsolutions.countriescarab.domain.repository.CountryRepository
 import com.rj2techsolutions.countriescarab.util.Resource
 import com.rj2techsolutions.countriescarab.util.toDomain
-import com.rj2techsolutions.countriescarab.util.toDomainList
+import com.rj2techsolutions.countriescarab.util.toDomainListFromEntity
+import com.rj2techsolutions.countriescarab.util.toDomainListFromResponse
 import com.rj2techsolutions.countriescarab.util.toEntity
 import com.rj2techsolutions.countriescarab.util.toEntityList
 import kotlinx.coroutines.CoroutineDispatcher
@@ -26,14 +27,14 @@ class CountryRepositoryImpl @Inject constructor(
    override fun getCountriesByRegion(region: String): Flow<Resource<List<Country>>> = flow {
         emit(Resource.loading())
 
-        val localData = localDataSource.getCountriesByRegion(region).first().toDomainList()
+        val localData = localDataSource.getCountriesByRegion(region).first().toDomainListFromEntity()
         if (localData.isNotEmpty()) {
             emit(Resource.success(localData))
         } else {
             try {
-                val remoteData = remoteDataSource.getRegions(region).toDomainList()
+                val remoteData = remoteDataSource.getRegions(region).toDomainListFromResponse()
                 localDataSource.insertCountries(remoteData.toEntityList())
-                val updatedLocalData = localDataSource.getCountriesByRegion(region).first().toDomainList()
+                val updatedLocalData = localDataSource.getCountriesByRegion(region).first().toDomainListFromEntity()
                 emit(Resource.success(updatedLocalData))
             } catch (e: Exception) {
                 emit(Resource.error("Error obteniendo datos remotos: ${e.message}"))
